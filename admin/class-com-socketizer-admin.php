@@ -164,6 +164,20 @@ class Com_Socketizer_Admin {
 	}
 
 	/**
+	 * Get the URL of posts page, skip reading settings confusion
+	 * @return false|string|void
+	 */
+	private function get_post_page_url() {
+
+		if ( 'page' == get_option( 'show_on_front' ) ) {
+			return get_permalink( get_option( 'page_for_posts' ) );
+		} else {
+			return home_url();
+		}
+	}
+
+
+	/**
 	 * Call Socketizer service when a post has been published
 	 *
 	 * @param $post_id
@@ -173,11 +187,13 @@ class Com_Socketizer_Admin {
 		$secret_key = $options['secret_key'];
 		$postUrl    = esc_url( get_permalink( $post_id ) );
 		$args       = array(
-			'postUrl'   => $postUrl,
-			'host'      => $this->host,
-			'secretKey' => $secret_key,
+			'host'         => $this->host,
+			'secretKey'    => $secret_key,
+			'postUrl'      => $postUrl,
+			'postId'       => (string) $post_id,
+			'pageForPosts' => $this->get_post_page_url(),
 		);
-		$url = $this->socketizer_service_url . 'cmd/client/refresh/post/';
+		$url        = $this->socketizer_service_url . 'cmd/client/refresh/post/';
 		wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
 	}
 
@@ -194,9 +210,11 @@ class Com_Socketizer_Admin {
 			$postUrl    = esc_url( get_permalink( $comment->comment_post_ID ) );
 			$url        = $this->socketizer_service_url . 'cmd/client/refresh/post/';
 			$args       = array(
-				'postUrl'   => $postUrl,
 				'host'      => $this->host,
 				'secretKey' => $secret_key,
+				'postUrl'   => $postUrl,
+				'postId'    => (string) $comment->comment_post_ID,
+				'pageForPosts' => $this->get_post_page_url(),
 			);
 			wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
 		}

@@ -166,7 +166,7 @@ class Com_Socketizer {
 
 		// set up our content based hooks
 		// post published
-		$this->loader->add_action( 'publish_post', $plugin_admin, 'post_published' );
+		$this->loader->add_action( 'publish_post', $plugin_admin, 'post_published', 10, 2 );
 		// comment posted
 		$this->loader->add_action( 'comment_post', $plugin_admin, 'comment_published', 10, 2 );
 	}
