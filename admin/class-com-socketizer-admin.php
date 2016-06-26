@@ -192,6 +192,9 @@ class Com_Socketizer_Admin {
 			'postUrl'      => $postUrl,
 			'postId'       => (string) $post_id,
 			'pageForPosts' => $this->get_post_page_url(),
+			'what'         => 'post',
+			'commentUrl'   => '',
+			'commentId'    => '',
 		);
 		$url        = $this->socketizer_service_url . 'cmd/client/refresh/post/';
 		wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
@@ -210,11 +213,13 @@ class Com_Socketizer_Admin {
 			$postUrl    = esc_url( get_permalink( $comment->comment_post_ID ) );
 			$url        = $this->socketizer_service_url . 'cmd/client/refresh/post/';
 			$args       = array(
-				'host'      => $this->host,
-				'secretKey' => $secret_key,
-				'postUrl'   => $postUrl,
-				'postId'    => (string) $comment->comment_post_ID,
+				'host'         => $this->host,
+				'secretKey'    => $secret_key,
+				'postUrl'      => $postUrl,
+				'postId'       => (string) $comment->comment_post_ID,
 				'pageForPosts' => $this->get_post_page_url(),
+				'commentUrl'   => get_comment_link( $comment_id ),
+				'commentId'    => (string) $comment_id,
 			);
 			wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
 		}

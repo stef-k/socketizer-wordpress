@@ -169,6 +169,8 @@ class Com_Socketizer {
 		$this->loader->add_action( 'publish_post', $plugin_admin, 'post_published', 10, 2 );
 		// comment posted
 		$this->loader->add_action( 'comment_post', $plugin_admin, 'comment_published', 10, 2 );
+		// catch any moderation uppon comments
+		$this->loader->add_action('comment_unapproved_to_approved', 'comment_published', 10, 2);
 	}
 
 	/**
