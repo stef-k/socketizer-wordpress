@@ -21,18 +21,19 @@
 
 		<?php
 		// get settings
-		$options    = get_option( $this->plugin_name );
-		$secret_key = $options['secret_key'];
+		$options = get_option( $this->plugin_name );
+		$api_key = $options['api_key'];
 		?>
 
 		<?php
 		settings_fields( $this->plugin_name );
 		do_settings_sections( $this->plugin_name );
 		?>
-
-		<label for="<?php echo $this->plugin_name; ?>-secret-key">Secret Key</label>
-		<input type="text" class="regular-text" id="<?php echo $this->plugin_name; ?>-secret-key"
-		       name="<?php echo $this->plugin_name; ?>[secret_key]" value="<?php echo $secret_key; ?>"/><br>
+		<p>Get your key from the <a href="" target="_blank">Socketizer service</a> and paste it bellow in the <strong>API Key</strong> field</p>
+		<p>You can regenerate your key visiting your Socketizer account</p>
+		<label for="<?php echo $this->plugin_name; ?>-api-key">API Key</label>
+		<input type="text" class="regular-text" id="<?php echo $this->plugin_name; ?>-api-key"
+		       name="<?php echo $this->plugin_name; ?>[api_key]" value="<?php echo $api_key; ?>"/><br>
 		<span class="description"><?php esc_attr_e( 'Your Socketizer secret key', 'wp_admin_style' ); ?></span><br>
 
 		<?php submit_button( 'Save', 'primary', 'submit', true ); ?>

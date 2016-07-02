@@ -147,10 +147,10 @@ class Com_Socketizer_Admin {
 	public function validate( $input ) {
 		$settings = array();
 
-		if ( ! empty( $input['secret_key'] ) ) {
-			$settings['secret_key'] = sanitize_text_field( $input['secret_key'] );
+		if ( ! empty( $input['api_key'] ) ) {
+			$settings['api_key'] = sanitize_text_field( $input['api_key'] );
 		} else {
-			$settings['secret_key'] = 'Your secret API key';
+			$settings['api_key'] = 'Your API key';
 		}
 
 		return $settings;
@@ -183,12 +183,12 @@ class Com_Socketizer_Admin {
 	 * @param $post_id
 	 */
 	public function post_published( $post_id ) {
-		$options    = get_option( $this->plugin_name );
-		$secret_key = $options['secret_key'];
-		$postUrl    = esc_url( get_permalink( $post_id ) );
-		$args       = array(
+		$options = get_option( $this->plugin_name );
+		$api_key = $options['api_key'];
+		$postUrl = esc_url( get_permalink( $post_id ) );
+		$args    = array(
 			'host'         => $this->host,
-			'secretKey'    => $secret_key,
+			'apiKey'       => $api_key,
 			'postUrl'      => $postUrl,
 			'postId'       => (string) $post_id,
 			'pageForPosts' => $this->get_post_page_url(),
@@ -196,7 +196,7 @@ class Com_Socketizer_Admin {
 			'commentUrl'   => '',
 			'commentId'    => '',
 		);
-		$url        = $this->socketizer_service_url . 'cmd/client/refresh/post/';
+		$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
 		wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
 	}
 
@@ -207,14 +207,14 @@ class Com_Socketizer_Admin {
 	 */
 	public function comment_published( $comment_id, $approved ) {
 		if ( $approved == 1 ) {
-			$options    = get_option( $this->plugin_name );
-			$secret_key = $options['secret_key'];
-			$comment    = get_comment( $comment_id );
-			$postUrl    = esc_url( get_permalink( $comment->comment_post_ID ) );
-			$url        = $this->socketizer_service_url . 'cmd/client/refresh/post/';
-			$args       = array(
+			$options = get_option( $this->plugin_name );
+			$api_key = $options['api_key'];
+			$comment = get_comment( $comment_id );
+			$postUrl = esc_url( get_permalink( $comment->comment_post_ID ) );
+			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
+			$args    = array(
 				'host'         => $this->host,
-				'secretKey'    => $secret_key,
+				'apiKey'       => $api_key,
 				'postUrl'      => $postUrl,
 				'postId'       => (string) $comment->comment_post_ID,
 				'pageForPosts' => $this->get_post_page_url(),
