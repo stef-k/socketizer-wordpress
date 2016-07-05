@@ -169,8 +169,20 @@ class Com_Socketizer {
 		$this->loader->add_action( 'publish_post', $plugin_admin, 'post_published', 10, 2 );
 		// comment posted
 		$this->loader->add_action( 'comment_post', $plugin_admin, 'comment_published', 10, 2 );
+		$this->loader->add_action( 'edit_comment', $plugin_admin, 'comment_published', 10, 2 );
 		// catch any moderation uppon comments
-		$this->loader->add_action('comment_unapproved_to_approved', 'comment_published', 10, 2);
+		$this->loader->add_action( 'comment_unapproved_to_approved', $plugin_admin, 'comment_published', 10, 2 );
+		$this->loader->add_action( 'comment_approved_to_unapproved', $plugin_admin, 'comment_published', 10, 2 );
+		$this->loader->add_action( 'comment_spam_to_approved', $plugin_admin, 'comment_published', 10, 2 );
+		$this->loader->add_action( 'comment_approved_to_spam', $plugin_admin, 'comment_published', 10, 2 );
+		$this->loader->add_action( 'comment_approved_to_trash', $plugin_admin, 'comment_published', 10, 2 );
+		$this->loader->add_action( 'comment_trash_to_approved', $plugin_admin, 'comment_published', 10, 2 );
+		// WooCommerce
+		$this->loader->add_action('woocommerce_product_set_stock', $plugin_admin, 'woo_product_stock_changed', 10, 1);
+		// bbpress
+		$this->loader->add_action('bbp_new_reply', $plugin_admin, 'bbpress_new_reply', 10, 7);
+		$this->loader->add_action('bbp_new_topic', $plugin_admin, 'bbpress_new_topic', 10, 4);
+		$this->loader->add_action('bbp_new_forum', $plugin_admin, 'bbpress_new_forum', 10, 1);
 	}
 
 	/**

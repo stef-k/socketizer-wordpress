@@ -218,10 +218,72 @@ class Com_Socketizer_Admin {
 				'postUrl'      => $postUrl,
 				'postId'       => (string) $comment->comment_post_ID,
 				'pageForPosts' => $this->get_post_page_url(),
+				'what'         => 'comment',
 				'commentUrl'   => get_comment_link( $comment_id ),
 				'commentId'    => (string) $comment_id,
 			);
 			wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
 		}
+	}
+
+	/**
+	 * @param $instance of product
+	 */
+	public function woo_product_stock_changed( $instance ) {
+
+		$options = get_option( $this->plugin_name );
+		$api_key = $options['api_key'];
+		$postUrl = esc_url( get_permalink( $instance->id ) );
+		$args    = array(
+			'host'         => $this->host,
+			'apiKey'       => $api_key,
+			'postUrl'      => $postUrl,
+			'postId'       => (string) $instance->id,
+			'pageForPosts' => $this->get_post_page_url(),
+			'what'         => 'product',
+			'commentUrl'   => '',
+			'commentId'    => '',
+		);
+		$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
+		wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
+	}
+
+	public function tf( $msg ) {
+		setlocale( LC_TIME, 'el_GR' );
+		$f = fopen( 'stef.txt', 'a' ) or die( 'cannot open stef file' );
+		fwrite( $f, strftime( '%X' ) . " $msg\n" );
+		fclose( $f );
+	}
+
+	/**
+	 * @param $reply_id
+	 * @param $topic_id
+	 * @param $forum_id
+	 * @param $anonymous_data
+	 * @param $reply_author
+	 * @param $false
+	 * @param $reply_to
+	 */
+	public function bbpress_new_reply( $reply_id, $topic_id, $forum_id, $anonymous_data, $reply_author, $false, $reply_to ) {
+		$this->tf( 'new reply' );
+	}
+
+	/**
+	 * @param $topic_id
+	 * @param $forum_id
+	 * @param $anonymous_data
+	 * @param $topic_author
+	 */
+	public function bbpress_new_topic( $topic_id, $forum_id, $anonymous_data, $topic_author ) {
+		// TODO make it work
+		$this->tf( 'new topic' );
+	}
+
+	/**
+	 * @param $array 'forum_id' => $forum_id, 'post_parent' => $forum_parent_id,
+	 */
+	public function bbpress_new_forum( $array ) {
+		// TODO make it work
+		$this->tf( 'new forum' );
 	}
 }
