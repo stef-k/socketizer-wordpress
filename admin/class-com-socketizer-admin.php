@@ -106,7 +106,7 @@ class Com_Socketizer_Admin {
 	 * Register the admin menu for the plugin
 	 */
 	public function add_plugin_admin_menu() {
-		add_options_page( 'Socketizer Settings', 'Socketizer', 'manage_options', $this->plugin_name, array(
+		add_options_page( 'Settings', 'Socketizer', 'manage_options', $this->plugin_name, array(
 			$this,
 			'display_settings_setup_page'
 		) );

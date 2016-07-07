@@ -15,7 +15,11 @@
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 <div class="wrap">
-	<h2><?php echo esc_html( get_admin_page_title() ); ?> </h2>
+	<img src=" <?php echo plugin_dir_url( __FILE__ ) ;?> ../../../img/socketizer_full.png"
+	     style="width: 200px;height: auto;border-radius:4px;"
+	     title="Realtime on the fly!" alt="socketizer logo">
+
+	<h1><?php echo esc_html( get_admin_page_title() ); ?> </h1>
 
 	<form method="post" name="socketizer_options" action="options.php">
 
@@ -42,10 +46,10 @@
 		settings_fields( $this->plugin_name );
 		do_settings_sections( $this->plugin_name );
 		?>
-		<p>Get your key from the <a href="" target="_blank">Socketizer service</a> and paste it bellow in the <strong>API Key</strong> field</p>
+		<p>Get your key from the <a href="https://socketizer.com" target="_blank">Socketizer service</a> and paste it bellow in the <strong>API Key</strong> field</p>
 		<p>You can regenerate your key visiting your Socketizer account</p>
 		<label for="<?php echo $this->plugin_name; ?>-api-key">API Key</label>
-		<input type="text" class="large-text" id="<?php echo $this->plugin_name; ?>-api-key"
+		<input type="text" class="large-text"  style="font-family: monospace;" id="<?php echo $this->plugin_name; ?>-api-key"
 		       name="<?php echo $this->plugin_name; ?>[api_key]" value="<?php echo $api_key; ?>"/><br>
 		<span class="description"><?php esc_attr_e( 'Your Socketizer API key. Keep it secret!', 'wp_admin_style' ); ?></span><br>
 		<hr>
