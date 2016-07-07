@@ -267,13 +267,6 @@ class Com_Socketizer_Admin {
 		}
 	}
 
-	public function tf( $msg ) {
-		setlocale( LC_TIME, 'el_GR' );
-		$f = fopen( 'stef.txt', 'a' ) or die( 'cannot open stef file' );
-		fwrite( $f, strftime( '%X' ) . " $msg\n" );
-		fclose( $f );
-	}
-
 	/**
 	 * Call Socketizer service when a new reply has been posted
 	 *
