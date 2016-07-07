@@ -36,8 +36,6 @@
 		$enabled_product_stock = $options['enabled_product_stock'];
 		$enabled_bb_reply = $options['enabled_bb_reply'];
 		$enabled_bb_topic = $options['enabled_bb_topic'];
-
-		echo print_r($options, true);
 		?>
 
 		<?php
