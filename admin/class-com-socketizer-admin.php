@@ -153,6 +153,12 @@ class Com_Socketizer_Admin {
 			$settings['api_key'] = 'Your API key';
 		}
 
+		$settings['enabled_posts']         = ( isset( $input['enabled_posts'] ) && ! empty( $input['enabled_posts'] ) ) ? 1 : 0;
+		$settings['enabled_comments']      = ( isset( $input['enabled_comments'] ) && ! empty( $input['enabled_comments'] ) ) ? 1 : 0;
+		$settings['enabled_product_stock'] = ( isset( $input['enabled_product_stock'] ) && ! empty( $input['enabled_product_stock'] ) ) ? 1 : 0;
+		$settings['enabled_bb_reply']      = ( isset( $input['enabled_bb_reply'] ) && ! empty( $input['enabled_bb_reply'] ) ) ? 1 : 0;
+		$settings['enabled_bb_topic']      = ( isset( $input['enabled_bb_topic'] ) && ! empty( $input['enabled_bb_topic'] ) ) ? 1 : 0;
+
 		return $settings;
 	}
 
@@ -184,68 +190,81 @@ class Com_Socketizer_Admin {
 	 */
 	public function post_published( $post_id ) {
 		$options = get_option( $this->plugin_name );
-		$api_key = $options['api_key'];
-		$postUrl = esc_url( get_permalink( $post_id ) );
-		$args    = array(
-			'host'         => $this->host,
-			'apiKey'       => $api_key,
-			'postUrl'      => $postUrl,
-			'postId'       => (string) $post_id,
-			'pageForPosts' => $this->get_post_page_url(),
-			'what'         => 'post',
-			'commentUrl'   => '',
-			'commentId'    => '',
-		);
-		$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
-		wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
-	}
-
-	/**
-	 * Call Socketizer service when a comment has been posted
-	 *
-	 * @param $comment_id
-	 */
-	public function comment_published( $comment_id, $approved ) {
-		if ( $approved == 1 ) {
-			$options = get_option( $this->plugin_name );
+		$enabled = $options['enabled_posts'];
+		if ( $enabled == 1 ) {
 			$api_key = $options['api_key'];
-			$comment = get_comment( $comment_id );
-			$postUrl = esc_url( get_permalink( $comment->comment_post_ID ) );
-			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
+			$postUrl = esc_url( get_permalink( $post_id ) );
 			$args    = array(
 				'host'         => $this->host,
 				'apiKey'       => $api_key,
 				'postUrl'      => $postUrl,
-				'postId'       => (string) $comment->comment_post_ID,
+				'postId'       => (string) $post_id,
 				'pageForPosts' => $this->get_post_page_url(),
-				'what'         => 'comment',
-				'commentUrl'   => get_comment_link( $comment_id ),
-				'commentId'    => (string) $comment_id,
+				'what'         => 'post',
+				'commentUrl'   => '',
+				'commentId'    => '',
 			);
+			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
 			wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
 		}
 	}
 
 	/**
-	 * @param $instance of product
+	 * Call Socketizer service when a comment has been posted
+	 *
+	 * @param $comment_id int comment's primary key
+	 * @param  $approved int comment passes moderation
+	 */
+	public function comment_published( $comment_id, $approved ) {
+		$options = get_option( $this->plugin_name );
+		$enabled = $options['enabled_comments'];
+		if ( $enabled == 1 ) {
+			if ( $approved == 1 ) {
+				$options = get_option( $this->plugin_name );
+				$api_key = $options['api_key'];
+				$comment = get_comment( $comment_id );
+				$postUrl = esc_url( get_permalink( $comment->comment_post_ID ) );
+				$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
+				$args    = array(
+					'host'         => $this->host,
+					'apiKey'       => $api_key,
+					'postUrl'      => $postUrl,
+					'postId'       => (string) $comment->comment_post_ID,
+					'pageForPosts' => $this->get_post_page_url(),
+					'what'         => 'comment',
+					'commentUrl'   => get_comment_link( $comment_id ),
+					'commentId'    => (string) $comment_id,
+				);
+				wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
+			}
+		}
+	}
+
+	/**
+	 * Call Socketizer service when a product's stock has changed
+	 *
+	 * @param $instance  WC_Product the product it's stock changed
 	 */
 	public function woo_product_stock_changed( $instance ) {
 
 		$options = get_option( $this->plugin_name );
-		$api_key = $options['api_key'];
-		$postUrl = esc_url( get_permalink( $instance->id ) );
-		$args    = array(
-			'host'         => $this->host,
-			'apiKey'       => $api_key,
-			'postUrl'      => $postUrl,
-			'postId'       => (string) $instance->id,
-			'pageForPosts' => $this->get_post_page_url(),
-			'what'         => 'product',
-			'commentUrl'   => '',
-			'commentId'    => '',
-		);
-		$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
-		wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
+		$enabled = $options['enabled_product_stock'];
+		if ( $enabled == 1 ) {
+			$api_key = $options['api_key'];
+			$postUrl = esc_url( get_permalink( $instance->id ) );
+			$args    = array(
+				'host'         => $this->host,
+				'apiKey'       => $api_key,
+				'postUrl'      => $postUrl,
+				'postId'       => (string) $instance->id,
+				'pageForPosts' => $this->get_post_page_url(),
+				'what'         => 'product',
+				'commentUrl'   => '',
+				'commentId'    => '',
+			);
+			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
+			wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
+		}
 	}
 
 	public function tf( $msg ) {
@@ -256,6 +275,8 @@ class Com_Socketizer_Admin {
 	}
 
 	/**
+	 * Call Socketizer service when a new reply has been posted
+	 *
 	 * @param $reply_id
 	 * @param $topic_id
 	 * @param $forum_id
@@ -265,25 +286,52 @@ class Com_Socketizer_Admin {
 	 * @param $reply_to
 	 */
 	public function bbpress_new_reply( $reply_id, $topic_id, $forum_id, $anonymous_data, $reply_author, $false, $reply_to ) {
-		$this->tf( 'new reply' );
+		$options = get_option( $this->plugin_name );
+		$enabled = $options['enabled_bb_reply'];
+		if ( $enabled == 1 ) {
+			$api_key = $options['api_key'];
+			$postUrl = esc_url( get_permalink( $topic_id ) );
+			$args    = array(
+				'host'         => $this->host,
+				'apiKey'       => $api_key,
+				'postUrl'      => $postUrl,
+				'postId'       => (string) $topic_id,
+				'pageForPosts' => $this->get_post_page_url(),
+				'what'         => 'bb_reply',
+				'commentUrl'   => '',
+				'commentId'    => '',
+			);
+			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
+			wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
+		}
 	}
 
 	/**
+	 * Call Socketizer service when a new topic has been posted
+	 *
 	 * @param $topic_id
 	 * @param $forum_id
 	 * @param $anonymous_data
 	 * @param $topic_author
 	 */
 	public function bbpress_new_topic( $topic_id, $forum_id, $anonymous_data, $topic_author ) {
-		// TODO make it work
-		$this->tf( 'new topic' );
-	}
-
-	/**
-	 * @param $array 'forum_id' => $forum_id, 'post_parent' => $forum_parent_id,
-	 */
-	public function bbpress_new_forum( $array ) {
-		// TODO make it work
-		$this->tf( 'new forum' );
+		$options = get_option( $this->plugin_name );
+		$enabled = $options['enabled_bb_topic'];
+		if ( $enabled == 1 ) {
+			$api_key = $options['api_key'];
+			$postUrl = esc_url( get_permalink( $forum_id ) );
+			$args    = array(
+				'host'         => $this->host,
+				'apiKey'       => $api_key,
+				'postUrl'      => $postUrl,
+				'postId'       => (string) $forum_id,
+				'pageForPosts' => $this->get_post_page_url(),
+				'what'         => 'bb_topic',
+				'commentUrl'   => '',
+				'commentId'    => '',
+			);
+			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
+			wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
+		}
 	}
 }
