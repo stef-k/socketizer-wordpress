@@ -52,7 +52,7 @@ class Com_Socketizer_Admin {
 
 		$this->plugin_name            = $plugin_name;
 		$this->version                = $version;
-		$this->socketizer_service_url = 'http://localhost:8080/service/api/v1/wordpress/';
+		$this->socketizer_service_url = 'https://service.socketizer.com/service/api/v1/wordpress/';
 		$this->host                   = preg_replace( "(^https?://)", "", get_home_url() );
 	}
 

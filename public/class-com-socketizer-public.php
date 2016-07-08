@@ -99,7 +99,7 @@ class Com_Socketizer_Public {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/com-socketizer-public.js', array( 'jquery' ), $this->version, false );
 		// socketizer library for wordpress
-		wp_enqueue_script( 'socketizer-lib', '//192.168.1.3:8080/service/static/wordpress/socketizer.min.js', array( 'jquery' ), '1.0.0', true );
+		wp_enqueue_script( 'socketizer-lib', 'https://service.socketizer.com/service/static/wordpress/socketizer.min.js', array( 'jquery' ), '1.0.0', true );
 
 		$socketizer = array(
 			'postsPage' => get_permalink( get_option( 'page_for_posts' ) ),
