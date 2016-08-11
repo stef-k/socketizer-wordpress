@@ -1,7 +1,7 @@
 === Socketizer ===
 Contributors: stefanosk
 Donate link: https://socketizer.com
-Tags: live, realtime, websockets
+Tags: live, realtime, websockets, async, load, refresh
 Requires at least: 3.0.1
 Tested up to: 4.5.3
 Stable tag: trunk

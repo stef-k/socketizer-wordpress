@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Socketizer
  * Plugin URI:        https://socketizer.com
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Your web in real time. Painful Websockets - WordPress integration, no coding skills required!
  * Version:           1.0.0
  * Author:            Stef Kariotidis
  * Author URI:        https://socketizer.com
