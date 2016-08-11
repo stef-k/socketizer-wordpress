@@ -23,6 +23,7 @@ Increase your conversion rate
 Transform your WordPress blog - forum - eshop into a realtime website. Give your site visitors the feel of a live
 updating site;a place where they can read and write in realtime.
 
+View the video: https://www.youtube.com/watch?v=L5XTvekMVYo
 
 Currently Socketizer provides realtime features for the following:
 
@@ -61,13 +62,14 @@ As above, your site continues to work normally as a classic WordPress site.
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Admin settings
+2. Socketizer
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.0 =
 Initial release
+
+== Upgrade Notice ==
+= 1.0.0 =
+No further actions required - first public release
