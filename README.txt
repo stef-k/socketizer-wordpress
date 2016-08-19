@@ -3,7 +3,7 @@ Contributors: stefanosk
 Donate link: https://socketizer.com
 Tags: live, realtime, websockets, async, load, refresh
 Requires at least: 3.0.1
-Tested up to: 4.5.3
+Tested up to: 4.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -67,9 +67,16 @@ As above, your site continues to work normally as a classic WordPress site.
 
 == Changelog ==
 
+= 1.1.0 =
+ * Non blocking requests to remote service. The plugin should now be completely asynchronous
+ * Switch to HTTP v1.1
+
 = 1.0.0 =
 Initial release
 
 == Upgrade Notice ==
+= 1.1.0 =
+No further actions required
+
 = 1.0.0 =
 No further actions required - first public release

@@ -16,7 +16,7 @@
  * Plugin Name:       Socketizer
  * Plugin URI:        https://socketizer.com
  * Description:       Your web in real time. Painful Websockets - WordPress integration, no coding skills required!
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Stef Kariotidis
  * Author URI:        https://socketizer.com
  * License:           GPL-2.0+
