@@ -205,7 +205,10 @@ class Com_Socketizer_Admin {
 				'commentId'    => '',
 			);
 			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
-			wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
+			wp_remote_post( $url, array(
+				'blocking' => false,
+				'body' => json_encode( $args )
+			) );
 		}
 	}
 
@@ -235,7 +238,10 @@ class Com_Socketizer_Admin {
 					'commentUrl'   => get_comment_link( $comment_id ),
 					'commentId'    => (string) $comment_id,
 				);
-				wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
+				wp_remote_post( $url, array(
+					'blocking' => false,
+					'body' => json_encode( $args )
+				) );
 			}
 		}
 	}
@@ -263,7 +269,10 @@ class Com_Socketizer_Admin {
 				'commentId'    => '',
 			);
 			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
-			wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
+			wp_remote_post( $url, array(
+				'blocking' => false,
+				'body' => json_encode( $args )
+			) );
 		}
 	}
 
@@ -295,7 +304,10 @@ class Com_Socketizer_Admin {
 				'commentId'    => '',
 			);
 			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
-			wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
+			wp_remote_post( $url, array(
+				'blocking' => false,
+				'body' => json_encode( $args )
+			) );
 		}
 	}
 
@@ -324,7 +336,10 @@ class Com_Socketizer_Admin {
 				'commentId'    => '',
 			);
 			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
-			wp_remote_post( $url, array( 'body' => json_encode( $args ) ) );
+			wp_remote_post( $url, array(
+				'blocking' => false,
+				'body' => json_encode( $args )
+			) );
 		}
 	}
 }
