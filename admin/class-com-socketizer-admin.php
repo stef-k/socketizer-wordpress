@@ -206,6 +206,7 @@ class Com_Socketizer_Admin {
 			);
 			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
 			wp_remote_post( $url, array(
+				'httpversion' => '1.1',
 				'blocking' => false,
 				'body' => json_encode( $args )
 			) );
@@ -239,6 +240,7 @@ class Com_Socketizer_Admin {
 					'commentId'    => (string) $comment_id,
 				);
 				wp_remote_post( $url, array(
+					'httpversion' => '1.1',
 					'blocking' => false,
 					'body' => json_encode( $args )
 				) );
@@ -270,6 +272,7 @@ class Com_Socketizer_Admin {
 			);
 			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
 			wp_remote_post( $url, array(
+				'httpversion' => '1.1',
 				'blocking' => false,
 				'body' => json_encode( $args )
 			) );
@@ -305,6 +308,7 @@ class Com_Socketizer_Admin {
 			);
 			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
 			wp_remote_post( $url, array(
+				'httpversion' => '1.1',
 				'blocking' => false,
 				'body' => json_encode( $args )
 			) );
@@ -337,6 +341,7 @@ class Com_Socketizer_Admin {
 			);
 			$url     = $this->socketizer_service_url . 'cmd/client/refresh/post/';
 			wp_remote_post( $url, array(
+				'httpversion' => '1.1',
 				'blocking' => false,
 				'body' => json_encode( $args )
 			) );
