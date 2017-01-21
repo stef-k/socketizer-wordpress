@@ -3,7 +3,7 @@ Contributors: stefanosk
 Donate link: https://socketizer.com
 Tags: live, realtime, websockets, async, load, refresh
 Requires at least: 3.0.1
-Tested up to: 4.6
+Tested up to: 4.7.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -32,6 +32,8 @@ Currently Socketizer provides realtime features for the following:
  * bbPress topics
  * bbPress replies
  * WooCommerce stock change events
+
+See the installation notes on how to install and obtain your key.
 
 == Installation ==
 
